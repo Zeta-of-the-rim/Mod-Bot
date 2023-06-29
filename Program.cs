@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
@@ -10,16 +11,11 @@ namespace ModBot
 {
     class StartUp
     {
-        public Boolean Debug = false;
-        
+        public static Boolean Debug;
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Thank you for choosing ModBot!");
-            if (File.Exists("DEBUG"))
-            {
-                // This is not a good way to do this, but it should allow users to debug the bot without tools
-                Console.WriteLine("Running in debug. This is not recommended for regular use. \n Remove the file DEBUG to disable debug mode.");
-            }
+            Console.WriteLine("ModBot\n  Remember to customize before rolling out to a live server");
+
             // Check if a token file exists
             if (!File.Exists("token.txt"))
             {
@@ -34,8 +30,7 @@ namespace ModBot
             
             // Now we read the config file (this ships with the bot)
             string Config = File.ReadAllText("config.json");
-            // Deserialize the config file (I have no idea what im doing)
-            
+
 
 
 
@@ -57,5 +52,12 @@ namespace ModBot
             Thread.Sleep(-1);
             // Holding the program open
         }
-    }        
+    }  
+    class DebugLogger
+    {
+        public void PrintDebugInfo(string info)
+        {
+            Console.WriteLine(info);
+        }
+    }
 }
