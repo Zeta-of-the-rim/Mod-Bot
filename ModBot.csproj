@@ -10,7 +10,13 @@
     <ItemGroup>
       <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01608" />
       <PackageReference Include="DSharpPlus.CommandsNext" Version="5.0.0-nightly-01608" />
+      <PackageReference Include="Figgle" Version="0.5.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="OpenAI-DotNet" Version="7.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="TemplateFiles\" />
     </ItemGroup>
 
 </Project>

@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.Entities;
+using Figgle;
 using Newtonsoft.Json;
 using static Newtonsoft.Json.Formatting;
 
@@ -14,8 +13,11 @@ namespace ModBot
         public static Boolean Debug;
         static async Task Main(string[] args)
         {
-            Console.WriteLine("ModBot\n  Remember to customize before rolling out to a live server");
-
+            Console.WriteLine(FiggleFonts.Standard.Render("ModBot"));
+            Console.WriteLine("Remember to customize before rolling out to a live server");
+            Console.WriteLine("This would be where the config would be shown \nIF I HAD ONE\nTo enable debug mode, create a file called DEBUG in the same directory as the executable\nPress enter to continue");
+            Console.ReadLine();
+            Console.Clear();
             // Check if a token file exists
             if (!File.Exists("token.txt"))
             {
@@ -26,38 +28,16 @@ namespace ModBot
                 Environment.Exit(400);
             }
             // Read the token file
-            string Token = File.ReadAllText("token.txt");
-            
-            // Now we read the config file (this ships with the bot)
-            string Config = File.ReadAllText("config.json");
-
-
-
-
-
-
-
-            var Discord_client = new DiscordClient(new DiscordConfiguration()
+            string token = File.ReadAllText("token.txt");
+            // Check if the token is empty (or has whitespace)
+            if (string.IsNullOrWhiteSpace(token))
             {
-                Token = Token,
-                TokenType = TokenType.Bot,
-                Intents = DiscordIntents.AllUnprivileged
-            });
-            // Register commands
-            Discord_client.UseCommandsNext(new CommandsNextConfiguration()
-            {
-                StringPrefixes = new string[] { "!" }
-            });
-            
-            Thread.Sleep(-1);
-            // Holding the program open
-        }
-    }  
-    class DebugLogger
-    {
-        public void PrintDebugInfo(string info)
-        {
-            Console.WriteLine(info);
+                Console.WriteLine("Token file is empty. Please enter your token in token.txt");
+                Environment.Exit(400);
+            }
+            // Trying to make my code look professional (see how long that lasts)
+            DiscordMain client = new DiscordMain(token, "OpenAiAipKey");
+            await Task.Delay(-1);
         }
     }
 }
